@@ -8,7 +8,7 @@
             background-color: #F73F52;
         }
 
-		h1,
+	h1,
         .topic,
         .value,
         .good-condition,
@@ -171,8 +171,8 @@
             console.log(event);
         });
 
-        microgear.subscribe("/<TOPIC NAME>"); // /SmartSensor/temp
-        microgear.subscribe("/<TOPIC NAME>"); // /SmartSensor/humid
+        microgear.subscribe("/SmartSensor/temp");
+        microgear.subscribe("/SmartSensor/humid");
         microgear.connect(APPID);
     </script>
 </body>
