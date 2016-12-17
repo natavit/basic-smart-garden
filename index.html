@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Strawberry Garden</title>
+    <style>
+        body {
+            background-color: #F73F52;
+        }
+
+		h1,
+        .topic,
+        .value,
+        .good-condition,
+        #status {
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+        
+        .container {
+            position: relative;
+            width: 542px;
+            margin: 10px auto 0 auto;
+        }
+        
+        .card {
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 20px;
+            width: 256px;
+            float: left;
+        }
+        
+        .card2 {
+            margin-left: 30px;
+        }
+        
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .content {
+            padding: 2px 16px;
+        }
+        
+        .clearfix:after {
+        	content: ".";
+            visibility: hidden;
+            display: block;
+            height: 0;
+            clear: both;
+        }
+        
+        hr {
+            border: 0;
+            background-color: #f2f2f2;
+            height: 2px;
+        }
+
+        #ref {
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        a:link {
+            color: white;
+            text-decoration: none;
+        }
+        
+        a:visited {
+            color: white;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        a:active {
+            text-decoration: underline;
+        }
+        
+        hr {
+            border: 0;
+            background-color: #f2f2f2;
+            height: 2px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <h1>Smart Strawberry Garden</h1>
+        <p id="status">Connecting...</p>
+    </div>
+    <div class="container">
+        <div class="card" id="card-temp">
+            <img src="https://firebasestorage.googleapis.com/v0/b/all-around-james-web.appspot.com/o/weather-icon%2Fthermometer.png?alt=media&token=b757b453-e3ce-4e54-9571-f22666b00fd3" alt="Temperature">
+            <hr>
+            <div class="content">
+                <h3 class="topic"><b>TEMPERATURE</b></h4>
+                <p id="temp" class="value">0.0 ºC</p>
+                <hr>
+                <div class="good-condition">
+                    <h4>Good Condition</h4>
+                    <p>15 ºC - 20 ºC</p>
+                </div>
+            </div>
+        </div>
+        <div class="card card2" id="card-humid">
+            <img src="https://firebasestorage.googleapis.com/v0/b/all-around-james-web.appspot.com/o/weather-icon%2Fraindrop.png?alt=media&token=b3262154-a7d6-4a48-a5ab-b11939da0f32" alt="Humidity">
+            <hr>
+            <div class="content">
+                <h3 class="topic"><b>HUMIDITY</b></h4>
+                <p id="humid" class="value">0.0%</p>
+                <hr>
+                <div class="good-condition">
+                    <h4>Good Condition</h4>
+                    <p>65% - 70%</p>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <p id="ref">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></p>
+
+    <script src="https://cdn.netpie.io/microgear.js"></script>
+    <script>
+        const APPID = "<APP ID>"; // App name
+        const APPKEY = "<APP KEY>";
+        const APPSECRET = "<APP SECRET>";
+        const ALIAS = "<GEAR NAME>"
+
+        var microgear = Microgear.create({
+            key: APPKEY,
+            secret: APPSECRET,
+            alias: ALIAS
+        });
+
+        microgear.on('message', function(topic, msg) {
+            console.log(topic);
+            if (topic === "<TOPIC NAME>") { // /EmbeddedProject/SmartSensor/temp
+                document.getElementById("temp").innerHTML = msg + " ºC";
+            } else {
+                document.getElementById("humid").innerHTML = msg + "%";
+            }
+        });
+
+        microgear.on('connected', function() {
+            microgear.setAlias(ALIAS);
+            document.getElementById("status").innerHTML = "Connected to Netpie";
+        });
+
+        microgear.on('present', function(event) {
+            console.log(event);
+        });
+
+        microgear.on('absent', function(event) {
+            console.log(event);
+        });
+
+        microgear.subscribe("/<TOPIC NAME>"); // /SmartSensor/temp
+        microgear.subscribe("/<TOPIC NAME>"); // /SmartSensor/humid
+        microgear.connect(APPID);
+    </script>
+</body>
+
+</html>
