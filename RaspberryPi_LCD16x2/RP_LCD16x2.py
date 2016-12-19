@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 import time
 import sys
 import time
-import Adafruit_DHT
 import Adafruit_CharLCD as LCD
 import microgear.client as microgear
 import logging
