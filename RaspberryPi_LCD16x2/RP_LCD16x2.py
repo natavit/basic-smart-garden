@@ -10,9 +10,9 @@ import os
 from time import sleep
 from datetime import datetime
 
-appid = "EmbeddedProject"
-gearkey = "j4TKxK545VAcQi1"
-gearsecret =  "eVyq1xTR4EvQ5DnW8JkYE0rwR"
+appid = "<APP ID>"
+gearkey = "<APP KEY>"
+gearsecret =  "<APP SECRET>"
 
 # Define GPIO to LCD mapping
 LCD_RS = 7
